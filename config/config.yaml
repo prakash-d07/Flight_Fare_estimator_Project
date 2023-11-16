@@ -6,4 +6,10 @@ data_ingestion:
   local_data_file: artifacts/data_ingestion/train.zip
   unzip_dir: artifacts/data_ingestion
 
+
+data_preprocessing:
+  root_dir: artifacts/data_preprocessing
+  datapath: artifacts/data_ingestion/Data_Train.xlsx
+  
+
   
