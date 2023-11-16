@@ -3,6 +3,7 @@ import urllib.request as request
 import zipfile
 from Flight_Fare_estimator_Project import logger
 from Flight_Fare_estimator_Project.utils.common import get_size
+from Flight_Fare_estimator_Project.entity.config_entity import DataIngestionConfig
 from pathlib import Path
 
 
@@ -14,7 +15,7 @@ class DataIngestion:
     def download_file(self):
         if not os.path.exists(self.config.local_data_file):
             filename, headers = request.urlretrieve(
-                URL=self.config.source_URL,filename=self.config.local_data_file)
+                url=self.config.source_URL,filename=self.config.local_data_file)
             logger.info(f"{filename} download! with following info: \n{headers}")
         else:
             logger.info(f"File already exists of size: {get_size(Path(self.config.local_data_file))}")

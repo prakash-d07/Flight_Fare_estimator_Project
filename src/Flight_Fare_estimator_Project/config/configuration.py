@@ -1,6 +1,6 @@
 from Flight_Fare_estimator_Project.constants import *
 from Flight_Fare_estimator_Project.utils.common import read_yaml, create_directories
-from Flight_Fare_estimator_Project.config_entity import DataIngestionConfig
+from Flight_Fare_estimator_Project.entity.config_entity import DataIngestionConfig
 
 
 class ConfigurationManager:
