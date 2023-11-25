@@ -8,3 +8,10 @@ class DataIngestionConfig:
     source_URL: str
     local_data_file: Path
     unzip_dir: Path
+
+
+
+@dataclass(frozen=True)
+class DatapreprocessConfig:
+    root_dir: Path
+    datapath: Path

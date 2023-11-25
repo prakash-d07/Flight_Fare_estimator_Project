@@ -1,9 +1,9 @@
 import os
 import urllib.request as request
 import zipfile
-from Flight_Fare_estimator_Project import logger
-from Flight_Fare_estimator_Project.utils.common import get_size
-from Flight_Fare_estimator_Project.entity.config_entity import DataIngestionConfig
+from src.Flight_Fare_estimator_Project import logger
+from src.Flight_Fare_estimator_Project.utils.common import get_size
+from src.Flight_Fare_estimator_Project.entity.config_entity import DataIngestionConfig
 from pathlib import Path
 
 

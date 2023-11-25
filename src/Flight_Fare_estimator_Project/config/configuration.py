@@ -1,6 +1,8 @@
-from Flight_Fare_estimator_Project.constants import *
-from Flight_Fare_estimator_Project.utils.common import read_yaml, create_directories
-from Flight_Fare_estimator_Project.entity.config_entity import DataIngestionConfig
+from src.Flight_Fare_estimator_Project.constants import *
+from src.Flight_Fare_estimator_Project.utils.common import read_yaml, create_directories
+from src.Flight_Fare_estimator_Project.entity.config_entity import DataIngestionConfig
+from src.Flight_Fare_estimator_Project.entity.config_entity import DatapreprocessConfig
+
 
 
 class ConfigurationManager:
@@ -30,3 +32,16 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+    
+
+    def get_datapreprocessing_config(self) -> DatapreprocessConfig:
+        config = self.config.data_preprocessing
+
+        create_directories([config.root_dir])
+
+        datapreprocess_config = DatapreprocessConfig(
+            root_dir=config.root_dir,
+            datapath=config.datapath
+        )
+
+        return datapreprocess_config

@@ -1,6 +1,6 @@
-from Flight_Fare_estimator_Project.config.configuration import ConfigurationManager
-from Flight_Fare_estimator_Project.components.data_ingestion import DataIngestion
-from Flight_Fare_estimator_Project import logger
+from src.Flight_Fare_estimator_Project.config.configuration import ConfigurationManager
+from src.Flight_Fare_estimator_Project.components.data_ingestion import DataIngestion
+from src.Flight_Fare_estimator_Project import logger
 
 STAGE_NAME="Data Ingestion stage"
 
