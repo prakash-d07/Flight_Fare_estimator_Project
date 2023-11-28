@@ -4,10 +4,10 @@ from src.Flight_Fare_estimator_Project import logger
 
 
 
-STAGE_NAME="Data Preprocessing stage_1  "
+STAGE_NAME="Data Preprocessing stage"
 
 
-class Datapreprocessing_stage_1:
+class Datapreprocessing_stage:
     def __init__(self):
         pass
 
@@ -23,14 +23,14 @@ class Datapreprocessing_stage_1:
         data_frame = data_preprocessing.extract_hour(data_frame, ['Arrival_Time','Dep_Time'])
         data_frame = data_preprocessing.extract_minute(data_frame, ['Arrival_Time','Dep_Time'])
         data_frame = data_preprocessing.extract_duration_minutes(data_frame,['Duration'])
-        data_frame = data_preprocessing.drop_columns(data_frame,['Duration','Date_of_Journey','Dep_Time','Arrival_Time','Route','Additional_Info'])
+        data_frame = data_preprocessing.drop_columns(data_frame,['Duration','Date_of_Journey','Dep_Time','Arrival_Time','Route','Additional_Info','Hour_of_Arrival_Time','Hour_of_Dep_Time','Minute_of_Arrival_Time','Minute_of_Dep_Time'])
         data_preprocessing.save_to_csv(data_frame, 'output.csv')  
 
 
 if __name__=='__main__':
     try:
         logger.info(f">>>> stage {STAGE_NAME} started<<<<<")
-        obj=Datapreprocessing_stage_1()
+        obj=Datapreprocessing_stage()
         obj.main()
         logger.info(f">>>> stage {STAGE_NAME} completed<<<<<")
     except Exception as e:

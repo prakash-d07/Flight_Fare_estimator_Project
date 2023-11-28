@@ -2,6 +2,7 @@ from src.Flight_Fare_estimator_Project.constants import *
 from src.Flight_Fare_estimator_Project.utils.common import read_yaml, create_directories
 from src.Flight_Fare_estimator_Project.entity.config_entity import DataIngestionConfig
 from src.Flight_Fare_estimator_Project.entity.config_entity import DatapreprocessConfig
+from src.Flight_Fare_estimator_Project.entity.config_entity import DataTransformationConfig
 
 
 
@@ -45,3 +46,16 @@ class ConfigurationManager:
         )
 
         return datapreprocess_config
+    
+
+    def get_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.data_transformation
+
+        create_directories([config.root_dir])
+
+        datatransformation_config = DataTransformationConfig(
+            root_dir=config.root_dir,
+            datapath=config.datapath
+        )
+
+        return datatransformation_config

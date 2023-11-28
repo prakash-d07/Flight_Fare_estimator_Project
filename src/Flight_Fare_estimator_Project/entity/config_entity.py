@@ -10,8 +10,14 @@ class DataIngestionConfig:
     unzip_dir: Path
 
 
-
 @dataclass(frozen=True)
 class DatapreprocessConfig:
     root_dir: Path
     datapath: Path
+
+
+@dataclass(frozen=True)
+class DataTransformationConfig:
+    root_dir: Path
+    datapath: Path
+

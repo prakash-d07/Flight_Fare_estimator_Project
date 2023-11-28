@@ -10,6 +10,11 @@ data_ingestion:
 data_preprocessing:
   root_dir: artifacts/data_preprocessing
   datapath: artifacts/data_ingestion/Data_Train.xlsx
+
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  datapath: artifacts/data_preprocessing/output.csv
   
 
   
