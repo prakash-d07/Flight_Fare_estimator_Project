@@ -14,4 +14,3 @@ Flask-Cors
 boxsdk
 openpyxl
 xgboost
-catboost

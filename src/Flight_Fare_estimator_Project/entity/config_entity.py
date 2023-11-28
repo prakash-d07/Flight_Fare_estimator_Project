@@ -21,3 +21,14 @@ class DataTransformationConfig:
     root_dir: Path
     datapath: Path
 
+@dataclass(frozen=True)
+class DataModellingConfig:
+    root_dir: Path
+    x_datapath: Path
+    y_datapath: Path
+    max_depth: float
+    max_features: str
+    min_samples_leaf: float
+    min_samples_split: float
+    n_estimators: float
+

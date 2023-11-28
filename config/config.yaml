@@ -15,6 +15,12 @@ data_preprocessing:
 data_transformation:
   root_dir: artifacts/data_transformation
   datapath: artifacts/data_preprocessing/output.csv
+
+
+data_modelling:
+  root_dir: artifacts/data_modelling
+  x_datapath: artifacts/data_transformation/x_output.csv
+  y_datapath: artifacts/data_transformation/y_output.csv
   
 
-  
+

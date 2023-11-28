@@ -1,1 +1,6 @@
-key: value
+  xgboost_params:
+    max_depth: 10
+    max_features: "sqrt"
+    min_samples_leaf: 6
+    min_samples_split: 9
+    n_estimators: 35

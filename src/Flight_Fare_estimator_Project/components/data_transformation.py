@@ -7,11 +7,7 @@ from src.Flight_Fare_estimator_Project.utils.common import get_size
 import pandas as pd
 import numpy as np 
 import pickle
-import pandas as pd
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder,StandardScaler
+
 
 
 class DataTransformation:
@@ -76,53 +72,29 @@ class DataTransformation:
             x = df.drop(columns=['Price'], axis=1)
             y = df['Price']
             logger.info(f"Dependent variables are {x.columns}, and Independent variables are {y.name}")
-          
-
-            output_filepath = os.path.join(self.config.root_dir, file_path)
-
-            if not os.path.exists(output_filepath):
-                pd.DataFrame(y, columns=['Price']).to_csv(output_filepath, index=False)
-                logger.info(f"Saving DataFrame to CSV file: {output_filepath}")
-            else:
-                logger.warning(f"CSV file already exists at {output_filepath}. Not saving.")
-
             return x, y
         except Exception as e:
             raise e
 
 
 
-    def get_data_transformed_object(self, x, file_path):
+    def save_to_csv(self, df,file_path):
+        """
+        Method: save_to_csv
+        Description: This method is used to save the DataFrame to a CSV file.
+        Parameters:
+            - df: DataFrame
+            - file_path: Path to save the CSV file
+        Return: None
+        Version: 1.0
+        """
         try:
-            numerical_columns = ['Duration_minutes']
-            categorical_columns = ['Airline', 'Source', 'Destination', 'Total_Stops']
-
-            num_pipeline = Pipeline(
-                steps=[
-                    ("scaler", StandardScaler())
-                ]
-            )
-            cat_pipeline = Pipeline(
-                steps=[
-                    ("one_hot_encoder", OneHotEncoder()),
-                    ("scaler", StandardScaler(with_mean=False))
-                ]
-            )
-            logger.info(f"Categorical columns: {categorical_columns}")
-            logger.info(f"Numerical columns: {numerical_columns}")
-
-            preprocessor = ColumnTransformer(
-                [
-                    ("num_pipeline", num_pipeline, numerical_columns),
-                    ("cat_pipelines", cat_pipeline, categorical_columns)
-                ]
-            )
-
-            scaled_x = preprocessor.fit_transform(x)
-            pickle_filepath = os.path.join(self.config.root_dir, file_path)
-            with open(pickle_filepath, 'wb') as file:
-                pickle.dump(scaled_x, file)
-
-            return preprocessor,scaled_x
+            output_filepath = os.path.join(self.config.root_dir, file_path)
+            if not os.path.exists(output_filepath):
+                logger.info(f"Saving DataFrame to CSV file: {output_filepath}")
+                df.to_csv(output_filepath, index=False)
+                logger.info("DataFrame saved successfully.")
+            else:
+                logger.warning(f"CSV file already exists at {output_filepath}. Not saving.")
         except Exception as e:
             raise e

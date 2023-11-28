@@ -3,6 +3,8 @@ from src.Flight_Fare_estimator_Project.utils.common import read_yaml, create_dir
 from src.Flight_Fare_estimator_Project.entity.config_entity import DataIngestionConfig
 from src.Flight_Fare_estimator_Project.entity.config_entity import DatapreprocessConfig
 from src.Flight_Fare_estimator_Project.entity.config_entity import DataTransformationConfig
+from src.Flight_Fare_estimator_Project.entity.config_entity import DataModellingConfig
+
 
 
 
@@ -59,3 +61,23 @@ class ConfigurationManager:
         )
 
         return datatransformation_config
+    
+
+    def get_modelling_config(self) -> DataModellingConfig:
+        config = self.config.data_modelling
+        params= self.params.xgboost_params
+
+        create_directories([config.root_dir])
+
+        datamodelling_config = DataModellingConfig(
+            root_dir=config.root_dir,
+            x_datapath=config.x_datapath,
+            y_datapath=config.y_datapath,
+            max_depth=params.max_depth,
+            max_features=params.max_features,
+            min_samples_leaf=params.min_samples_leaf,
+            min_samples_split=params.min_samples_split,
+            n_estimators=params.n_estimators
+        )
+
+        return datamodelling_config
