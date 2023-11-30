@@ -21,6 +21,8 @@ data_modelling:
   root_dir: artifacts/data_modelling
   x_datapath: artifacts/data_transformation/x_output.csv
   y_datapath: artifacts/data_transformation/y_output.csv
+  preprocessor_file_path: artifacts/data_modelling/scaler.pkl
+  model_file_path: artifacts/data_modelling
   
 
 

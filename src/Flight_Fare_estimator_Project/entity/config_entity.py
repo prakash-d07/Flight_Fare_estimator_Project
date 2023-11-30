@@ -26,6 +26,8 @@ class DataModellingConfig:
     root_dir: Path
     x_datapath: Path
     y_datapath: Path
+    model_file_path: Path
+    preprocessor_file_path: Path
     max_depth: float
     max_features: str
     min_samples_leaf: float

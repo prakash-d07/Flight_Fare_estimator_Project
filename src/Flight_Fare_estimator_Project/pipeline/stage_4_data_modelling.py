@@ -16,7 +16,7 @@ class DataModelling_stage:
             config = ConfigurationManager()
             data_modelling_config = config.get_modelling_config()
             data_modelling = DataModelling(config=data_modelling_config)
-            preprocessor_obj, x_scaled, y = data_modelling.get_data_transformed_object("scaler.pkl")
+            x_scaled, y = data_modelling.get_data_transformed_object()
             x_train, x_test, y_train, y_test = data_modelling.train_test_variables(x_scaled, y)
             xgb_model = data_modelling.model_trainer(x_train, y_train, x_test, y_test)
             

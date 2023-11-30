@@ -3,6 +3,7 @@ from box.exceptions import BoxValueError
 import yaml
 import json
 import joblib
+import pickle
 from src.Flight_Fare_estimator_Project import logger
 from ensure import ensure_annotations
 from box import ConfigBox
@@ -130,5 +131,12 @@ def get_size(path: Path) -> str:
     size_in_kb = round(os.path.getsize(path)/1024)
     return f"~ {size_in_kb} KB"
 
+def load_object(file_path):
+    """
+    Gets the pickle file after loading
+    """
+            
+    with open(file_path, "rb") as file_obj:
+        return pickle.load(file_obj)
 
 

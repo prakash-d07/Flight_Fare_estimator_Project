@@ -14,6 +14,7 @@ from sklearn.model_selection import train_test_split
 from xgboost import XGBRegressor
 import pickle
 import os
+from scipy.sparse import csr_matrix
 from src.Flight_Fare_estimator_Project import logger
 
 
@@ -22,64 +23,54 @@ class DataModelling:
         self.config=config
     
 
-    def get_data_transformed_object(self,file_path):
-        """
-        Method: To handle categorical vaiables and standardization
-        Description: This method is used to standardize the data and handle categorical variables.
-        Parameters: Outfile file path name
-        Return: preprocessor_obj, Scaled Independent Features and output feature
-        Version: 1.0
-        """
+    def get_data_transformed_object(self):
         try:
-            x=pd.read_csv(self.config.x_datapath)
-            y=pd.read_csv(self.config.y_datapath)
+            x = pd.read_csv(self.config.x_datapath)
+            y = pd.read_csv(self.config.y_datapath)
 
-            numerical_columns = ['Duration_minutes']
+            logger.info(f"Columns in x: {x.columns}")
+            logger.info(f"{x.dtypes}")
+
+            numerical_columns = ['Duration_minutes', 'Month_of_Month_of_journey', 'day_of_date_of_journey']
             categorical_columns = ['Airline', 'Source', 'Destination', 'Total_Stops']
 
-            num_pipeline = Pipeline(
-                steps=[
-                    ("scaler", StandardScaler())
-                ]
-            )
-            cat_pipeline = Pipeline(
-                steps=[
-                    ("one_hot_encoder", OneHotEncoder()),
-                    ("scaler", StandardScaler(with_mean=False))
-                ]
-            )
-            logger.info(f"Categorical columns: {categorical_columns}")
-            logger.info(f"Numerical columns: {numerical_columns}")
+            data_OHE = pd.concat([
+                x[['Month_of_Month_of_journey', 'day_of_date_of_journey', 'Duration_minutes']],
+                pd.get_dummies(x['Airline'].str.replace(' ', '_')),
+                pd.get_dummies(x['Source'], prefix='source'),
+                pd.get_dummies(x['Destination'], prefix='destination'),
+                pd.get_dummies(x['Total_Stops'].str.replace(' ', '_'), prefix="stop")  # Replace spaces with underscores
+            ], axis=1)
 
-            preprocessor = ColumnTransformer(
-                [
-                    ("num_pipeline", num_pipeline, numerical_columns),
-                    ("cat_pipelines", cat_pipeline, categorical_columns)
-                ]
-            )
 
-            scaled_x = preprocessor.fit_transform(x)
-            pickle_filepath = os.path.join(self.config.root_dir, file_path)
-            with open(pickle_filepath, 'wb') as file:
-                pickle.dump(scaled_x, file)
+            data_OHE = data_OHE.astype(int)
+            numerical_data = data_OHE[numerical_columns]
+            scaler = StandardScaler()
+            scaled_numerical_data = scaler.fit_transform(numerical_data)
+            scaled_numerical_df = pd.DataFrame(scaled_numerical_data, columns=numerical_columns)
+            scaled_numerical_df.reset_index(drop=True, inplace=True)
+            data_OHE.reset_index(drop=True, inplace=True)
 
-            return preprocessor,scaled_x,y
+
+            data_OHE.drop(columns=numerical_columns, inplace=True)
+
+            scaled_data_OHE = pd.concat([scaled_numerical_df, data_OHE], axis=1)
+
+            scaler_filename = self.config.preprocessor_file_path
+            with open(scaler_filename, 'wb') as scaler_file:
+                pickle.dump(scaler, scaler_file)
+
+            logger.info(f"columns of preprocessed data   {scaled_data_OHE.columns}")
+            logger.info(f"shape of preprocessed data     {scaled_data_OHE.shape}")
+
+
+            return scaled_data_OHE, y
         except Exception as e:
             raise e
 
-
-    def train_test_variables(self, x_scaled_variable,y):
-        """
-        Method: Extracting Train and Test Variables
-        Description: This method is used to extract Train and test variables from Dataframe.
-        Parameters: dependent and Independent variable
-        Return: dependent and Independent variables after Train test Split
-        Version: 1.0
-        """
+    def train_test_variables(self, x_scaled_variable, y):
         try:
-
             logger.info(f"Shape of data is X: {x_scaled_variable.shape},Y:{y.shape}")
-
 
             logger.info("Train Test Split of The Data Started")
             x_train, x_test, y_train, y_test = train_test_split(x_scaled_variable, y, test_size=0.2, random_state=42)
@@ -121,3 +112,4 @@ class DataModelling:
             return xgb_model
         except Exception as e:
             raise e
+    

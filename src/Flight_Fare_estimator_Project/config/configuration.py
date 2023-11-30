@@ -73,6 +73,8 @@ class ConfigurationManager:
             root_dir=config.root_dir,
             x_datapath=config.x_datapath,
             y_datapath=config.y_datapath,
+            model_file_path=config.model_file_path,
+            preprocessor_file_path= config.preprocessor_file_path,
             max_depth=params.max_depth,
             max_features=params.max_features,
             min_samples_leaf=params.min_samples_leaf,
@@ -81,3 +83,4 @@ class ConfigurationManager:
         )
 
         return datamodelling_config
+
