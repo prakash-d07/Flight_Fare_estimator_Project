@@ -1,3 +1,136 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Fare Estimator</title>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            background-color: rgb(88, 170, 147);
+        
+        }
+
+        .login {
+            background-color: rgb(255, 255, 255)b5b;
+            padding: 20px;
+            width: 300px;
+            margin: 50px auto;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #cd6565;
+        }
+
+        h1 {
+    
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 20px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #b4cbb5;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #acc09f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login">
+        <h1>Flight Fare Estimator</h1>
+
+        <!-- Main Input For Receiving Query to our ML -->
+        <form action="{{ url_for('predict')}}" method="post">
+            <label for="Airline">Airline:</label>
+            <select name="Airline" id="Airline" required="required">
+                <option value="Jet Airways">Jet Airways</option>
+                <option value="IndiGo">IndiGo</option>
+                <option value="Air India">Air India</option>
+                <option value="Multiple carriers">Multiple carriers</option>
+                <option value="SpiceJet">SpiceJet</option>
+                <option value="Vistara">Vistara</option>
+                <option value="Air Asia">Air Asia</option>
+                <option value="GoAir">GoAir</option>
+                <option value="Multiple carriers Premium economy">Multiple carriers Premium economy</option>
+                <option value="Jet Airways Business">Jet Airways Business</option>
+                <option value="Vistara Premium economy">Vistara Premium economy</option>
+                <option value="Trujet">Trujet</option>
+            </select><br>
+
+            <label for="Source">Source:</label>
+            <select name="Source" id="Source" required="required">
+                <option value="Delhi">Delhi</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Banglore">Banglore</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Chennai">Chennai</option>
+            </select><br>
+
+            <label for="Destination">Destination:</label>
+            <select name="Destination" id="Destination" required="required">
+                <option value="Cochin">Cochin</option>
+                <option value="Banglore">Banglore</option>
+                <option value="Delhi">Delhi</option>
+                <option value="New Delhi">New Delhi</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Kolkata">Kolkata</option>
+            </select><br>
+
+            <label for="Total_Stops">Total Stops:</label>
+            <select name="Total_Stops" id="Total_Stops" required="required">
+                <option value="non-stop">non-stop</option>
+                <option value="1 stop">1 stop</option>
+                <option value="2 stops">2 stops</option>
+                <option value="3 stops">3 stops</option>
+                <option value="4 stops">4 stops</option>
+            </select><br>
+
+            <input type="number" name="Month_of_Month_of_journey" placeholder="Month_of_Month_of_journey"
+                required="required" /><br>
+            <input type="number" name="Day_of_Date_of_Journey" placeholder="Day_of_Date_of_Journey"
+                required="required" /><br>
+            <label for="Duration_hours">Duration (hours):</label>
+            <input type="number" name="Duration_hours" placeholder="Hours" required="required" /><br>
+
+            <label for="Duration_minutes">Duration (minutes):</label>
+            <input type="number" name="Duration_minutes" placeholder="Minutes" required="required" /><br>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        <br>
+        <br>
+
+    </div>
+    {{prediction_text}}
+
+</body>
+
+</html>
 
