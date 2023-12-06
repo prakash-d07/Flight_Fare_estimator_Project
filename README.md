@@ -78,5 +78,6 @@ open up you local host and port
 ```
 
 ### Prediction_images
-![Alt text](https://github.com/prakash-d07/Flight_Fare_estimator_Project/blob/main/templates/PHOTO-2023-11-29-23-26-28.jpg)
 ![Alt text](https://github.com/prakash-d07/Flight_Fare_estimator_Project/blob/main/templates/PHOTO-2023-11-29-23-26-08.jpg)
+![Alt text](https://github.com/prakash-d07/Flight_Fare_estimator_Project/blob/main/templates/PHOTO-2023-11-29-23-26-28.jpg)
+
